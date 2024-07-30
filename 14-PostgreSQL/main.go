@@ -4,14 +4,21 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
 func main() {
+	err := godotenv.Load()
+
+	if err != nil {
+		fmt.Println("File .env tidak terbaca")
+	}
 
 	// Konfigurasi koneksi database
-	connStr := "user=postgres dbname=postgre password=postgres host=127.0.0.1 port=5432 sslmode=disable"
+	connStr := "user=postgres dbname=trialdb password=postgre host=" + os.Getenv("DB_HOST") + " port=5432 sslmode=disable"
 
 	// Membuka koneksi ke database
 	db, err := sql.Open("postgres", connStr)
@@ -27,8 +34,8 @@ func main() {
 	}
 	fmt.Println("Koneksi ke database berhasil!")
 
-	nama := "adi"
-	umur := 16
+	nama := "budi"
+	umur := 15
 
 	// Memanggil stored procedure
 	// Cara buat procedure insert di postgres
