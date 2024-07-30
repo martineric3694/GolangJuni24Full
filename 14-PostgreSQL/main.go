@@ -17,8 +17,18 @@ func main() {
 		fmt.Println("File .env tidak terbaca")
 	}
 
+	// Untuk membuka file .env
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Failed to open .env file")
+	}
+
 	// Konfigurasi koneksi database
+<<<<<<< HEAD
 	connStr := "user=postgres dbname=trialdb password=postgre host=" + os.Getenv("DB_HOST") + " port=5432 sslmode=disable"
+=======
+	connStr := "user=" + os.Getenv("DB_USER") + " dbname=" + os.Getenv("DB_NAME") + " password=" + os.Getenv("DB_PASS") + " host=" + os.Getenv("DB_HOST") + " port=5432 sslmode=disable"
+>>>>>>> 1d9b9d7b47ed9fb29f43a3d43a229f1a6e7a0d9e
 
 	// Membuka koneksi ke database
 	db, err := sql.Open("postgres", connStr)
