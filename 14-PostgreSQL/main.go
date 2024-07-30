@@ -4,14 +4,22 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
 func main() {
 
+	// Untuk membuka file .env
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Failed to open .env file")
+	}
+
 	// Konfigurasi koneksi database
-	connStr := "user=postgres dbname=postgre password=postgres host=127.0.0.1 port=5432 sslmode=disable"
+	connStr := "user=" + os.Getenv("DB_USER") + " dbname=" + os.Getenv("DB_NAME") + " password=" + os.Getenv("DB_PASS") + " host=" + os.Getenv("DB_HOST") + " port=5432 sslmode=disable"
 
 	// Membuka koneksi ke database
 	db, err := sql.Open("postgres", connStr)
